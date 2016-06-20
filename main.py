@@ -1,4 +1,4 @@
-from Webscraper import TradeList
+from webscraper import TradeList
 
 listings = TradeList('toyota', 'yaris', 'ox12jd', '100')
 listings.load_page(page_num=1)
