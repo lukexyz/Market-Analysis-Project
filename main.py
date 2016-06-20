@@ -17,8 +17,10 @@ price_array, attributes = listings.run(listings, pages=2, delay=1)
 
 print('='*8)
 print('DATA')
-print(price_array)
+print(price_array[:25])
+print('(x of {})'.format(len(price_array)))
 print('')
 
 # attributes = listings.get_attributes()
-print(attributes)
+print(attributes[:4])
+print('(3 of {})'.format(len(attributes)))

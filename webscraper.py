@@ -32,7 +32,7 @@ class TradeList(object):
         """Runs BeautifulSoup module on the results page."""
         r = requests.get(self.get_url(page_num))
         self.soup = BeautifulSoup(r.text, "html.parser")
-        print("Page loaded successfully ✓")
+        print("Page {} processing...".format(page_num))
 
     def get_num_pages(self):
         """Returns the number of pages of results."""
@@ -60,10 +60,10 @@ class TradeList(object):
         """Returns car attributes"""
         attributes = self.soup.html.body.findAll('ul', {'class': 'search-result__attributes'})
         summary = []
-        car_attr = ''
         for k in range(1, 11):
-            for item in attributes[k].findAll('li'):
-                if attributes[k].find(class_='js-tooltip'):
+            car_attr = ''
+            for counter, item in enumerate(attributes[k].findAll('li')):
+                if attributes[k].find(class_='js-tooltip') and counter == 0:
                     continue
                 else:
                     car_attr += item.text + ' '
@@ -73,23 +73,23 @@ class TradeList(object):
     def run(self, listings, pages=3, delay=1):
         """Loops over search results and returns an array of vehicle attributes"""
         price_array = np.array([])
-        attr_array = np.array([])
+        attr_array = np.array([], dtype=object)
         print('='*8)
         print('BEGIN LOOP')
         for page_num in range(1, pages+1):
             listings.load_page(page_num)
 
-            # Concat attributes into array
+            # Append attributes into array
             page_prices = listings.get_prices()
             price_array = np.append(price_array, page_prices)
-            attributes = listings.get_attributes
+            attributes = listings.get_attributes()
             attr_array = np.append(attr_array, attributes)
 
             # Sleep delay
             ts = time.time()
             random_sleep = delay + delay*(random.randint(0, 1000) / 1000)
             time.sleep(random_sleep)
-            print('{:0.4} s time delay'.format(time.time() - ts))
+            print('({:0.4} s time delay)'.format(time.time() - ts))
         return price_array, attr_array
 
 
