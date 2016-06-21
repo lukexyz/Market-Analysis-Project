@@ -26,7 +26,7 @@ class TradeList(object):
 
     def print_intro(self):
         print('=' * 8)
-        print('Autotrader Scraping Tool - By Luke Woods 2016')
+        print('Autotrader Scraping Tool - Luke Woods 2016')
         print('Vehicle: {}, {}. Searching... {} miles around {}.'
               .format(self.make, self.car_model, self.radius, self.postcode))
 

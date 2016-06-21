@@ -1,26 +1,24 @@
 from webscraper import TradeList
+from datacleaner import DataCleaner
+
 
 listings = TradeList('Toyota', 'Yaris', 'OX12JD', '100')
 
-# listings.load_page(page_num=1)
-# url = listings.get_url()
-# print(url)
-# num_pages = listings.get_num_pages()
-# print(num_pages)
-# prices = listings.get_prices()
-# print(prices)
+# Initiate loop
+price_array, attributes = listings.run(listings, pages=1, delay=0)
 
-
-# Start loop
-
-price_array, attributes = listings.run(listings, pages=2, delay=1)
-
+# Output
 print('='*8)
-print('DATA')
-print(price_array[:25])
-print('(x of {})'.format(len(price_array)))
+print('PRICE DATA')
+print(price_array[:10])
+print('                                          →(Viewing 4 of {})'.format(len(price_array)))
 print('')
-
-# attributes = listings.get_attributes()
+print('ATTRIBUTES')
 print(attributes[:4])
-print('(3 of {})'.format(len(attributes)))
+print('                                          →(Viewing 4 of {})'.format(len(attributes)))
+print('='*8)
+
+# Cleaning data
+clean = DataCleaner(price_array, attributes)
+df = clean.get_df()
+print(df)
