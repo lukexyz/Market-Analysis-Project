@@ -76,10 +76,34 @@ class TradeList(object):
             summary.append(car_attr)
         return summary
 
+    def get_url_ids(self):
+        """Return unique url ID."""
+        links = self.soup.html.body.findAll('a', {'class': 'gui-test-search-result-link'})
+        url_id = [''] * 10
+        k = 0
+        for link in links:
+            url_id[k] = str(re.findall('\d+', link.get('href'))[0])
+            k += 1
+        return url_id
+
+    def get_urls(self):
+        """Return the url."""
+        links = self.soup.html.body.findAll('a', {'class': 'gui-test-search-result-link'})
+        url = [''] * 10
+        k = 0
+        for link in links:
+            url[k] = link.get('href')
+            k += 1
+            print(k, link.get('href'))
+        return url
+
     def run(self, listings, pages=3, delay=1):
         """Loops over search results and returns an array of vehicle attributes"""
         price_array = np.array([])
         attr_array = np.array([], dtype=object)
+        url_id_array = np.array([])
+        url_array = np.array([])
+
         print('='*8)
         print('BEGIN LOOP')
         for page_num in range(1, pages+1):
@@ -92,12 +116,19 @@ class TradeList(object):
             attributes = listings.get_attributes()
             attr_array = np.append(attr_array, attributes)
 
+            url_ids = listings.get_url_ids()
+            url_id_array = np.append(url_id_array, url_ids)
+
+            urls = listings.get_urls()
+            url_array = np.append(url_array, urls)
+
+
             # Sleep delay
             ts = time.time()
             random_sleep = delay + delay*(random.randint(0, 1000) / 1000)
             time.sleep(random_sleep)
             print('({:0.4} s delay)'.format(time.time() - ts))
-        return price_array, attr_array
+        return price_array, attr_array, url_id_array, url_array
 
 
 
