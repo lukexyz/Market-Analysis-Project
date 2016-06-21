@@ -22,6 +22,13 @@ class TradeList(object):
                           "postcode/{postcode}/radius/{radius}/searchcontext/default/sort/" \
                           "priceasc/onesearchad/new%2Cnearlynew%2Cused/page/{page_num}"
         self.soup = None
+        self.print_intro()
+
+    def print_intro(self):
+        print('=' * 8)
+        print('Autotrader Scraping Tool - By Luke Woods 2016')
+        print('Vehicle: {}, {}. Searching... {} miles around {}.'
+              .format(self.make, self.car_model, self.radius, self.postcode))
 
     def get_url(self, page_num=1):
         """Creates and returns the URL"""
@@ -32,7 +39,6 @@ class TradeList(object):
         """Runs BeautifulSoup module on the results page."""
         r = requests.get(self.get_url(page_num))
         self.soup = BeautifulSoup(r.text, "html.parser")
-        print("Page {} processing...".format(page_num))
 
     def get_num_pages(self):
         """Returns the number of pages of results."""
@@ -77,6 +83,7 @@ class TradeList(object):
         print('='*8)
         print('BEGIN LOOP')
         for page_num in range(1, pages+1):
+            print("Processing page {} of {}...".format(page_num, pages))
             listings.load_page(page_num)
 
             # Append attributes into array
@@ -89,7 +96,7 @@ class TradeList(object):
             ts = time.time()
             random_sleep = delay + delay*(random.randint(0, 1000) / 1000)
             time.sleep(random_sleep)
-            print('({:0.4} s time delay)'.format(time.time() - ts))
+            print('({:0.4} s delay)'.format(time.time() - ts))
         return price_array, attr_array
 
 

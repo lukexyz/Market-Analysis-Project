@@ -1,14 +1,14 @@
 from webscraper import TradeList
 
-listings = TradeList('toyota', 'yaris', 'ox12jd', '100')
-listings.load_page(page_num=1)
+listings = TradeList('Toyota', 'Yaris', 'OX12JD', '100')
 
-url = listings.get_url()
-print(url)
-num_pages = listings.get_num_pages()
-print(num_pages)
-prices = listings.get_prices()
-print(prices)
+# listings.load_page(page_num=1)
+# url = listings.get_url()
+# print(url)
+# num_pages = listings.get_num_pages()
+# print(num_pages)
+# prices = listings.get_prices()
+# print(prices)
 
 
 # Start loop
