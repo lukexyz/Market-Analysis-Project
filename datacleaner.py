@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 
 
 class DataCleaner(object):
@@ -12,20 +13,22 @@ class DataCleaner(object):
         attr = self.attributes
         print('Returning Pandas DF')
 
-        return years
+        # Extracting values from string
+        years = np.zeros(len(attr))
+        miles = np.zeros(len(attr))
+        for i in range(len(attr)):
+            # Example string:
+            # '2000 (W reg) Hatchback 177,000 miles Manual 1.0L 67 bhp Petrol '
+            years[i] = int(attr[i].split(' ')[0])
+            miles[i] = int(attr[i].split(' ')[4].replace(",", ""))
 
-    # def get_years(self, attr):
-    #     """Returns the cleaned year attribute"""
-    #     years = np.zeros(len(attr))
-    #     for i in range(len(attr)):
-    #         years[i] = int(attr[i].split(' ')[0])
-    #     return years
-    #
-    # def get_miles(self, attr):
-    #     """Returns the cleaned miles attribute"""
-    #     miles = np.zeros(len(attr))
-    #     for i in range(len(attr)):
-    #         years[i] = int(attr[i].split(' ')[0])
-    #     return miles
+        # Create data frame
+        data = {'Price': prices,
+                'Year': years,
+                'Miles': miles}
+        df = pd.DataFrame(data, columns=['Price', 'Year', 'Miles'])
+
+        return df
+
 
 

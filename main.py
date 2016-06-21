@@ -11,11 +11,11 @@ price_array, attributes = listings.run(listings, pages=1, delay=0)
 print('='*8)
 print('PRICE DATA')
 print(price_array[:10])
-print('                                          →(Viewing 4 of {})'.format(len(price_array)))
+print('                                        →(Viewing 10 of {})'.format(len(price_array)))
 print('')
 print('ATTRIBUTES')
 print(attributes[:4])
-print('                                          →(Viewing 4 of {})'.format(len(attributes)))
+print('                                        →(Viewing 4 of {})'.format(len(attributes)))
 print('='*8)
 
 # Cleaning data
