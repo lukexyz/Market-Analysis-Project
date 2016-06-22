@@ -1,17 +1,13 @@
 from webscraper import TradeList
 from datacleaner import DataCleaner
 
-
+# Web scraper instance
 listings = TradeList('Toyota', 'Yaris', 'OX12JD', '100')
 
 # Initiate loop
-price_array, attributes, url_ids, urls = listings.run(listings, pages=10, start_page=1, delay=1)
+price_array, attributes, url_ids, urls = listings.run(listings, pages=100, start_page=1, delay=2)
 
-# print('hi')
-# print(listings.get_prices())
-# listings.get_attributes()
-
-# Output
+# Format output
 print('='*8)
 print('PRICE DATA')
 print(price_array[:10])
@@ -20,17 +16,16 @@ print('')
 print('ATTRIBUTES')
 print(attributes[:4])
 print('                                        →(Viewing 4 of {})'.format(len(attributes)))
-print('')
 print('='*8)
+print('Array sizes {} {} {} {}'.format(len(price_array), len(attributes), len(url_ids), len(urls)))
+print('')
 
 # Cleaning data
+clean = DataCleaner(price_array, attributes, url_ids, urls)
 
-print('array sizes {} {} {} {}'.format(len(price_array), len(attributes), len(url_ids), len(urls)))
+# Display data frame
+df = clean.get_df()
+print(df.iloc[:5, :-1])    # 5 rows, remove url column
 
-# clean = DataCleaner(price_array, attributes, url_ids, urls)
-#
-# df = clean.get_df()
-# print(df.iloc[:5, :-1])    # 5 rows, remove url column
-#
-#
-# df.to_csv('yaris50-100.csv')
+# Save results
+df.to_csv('yaris{}.csv'.format(len(df)))

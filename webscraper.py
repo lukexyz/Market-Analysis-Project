@@ -105,9 +105,10 @@ class TradeList(object):
 
         print('='*8)
         print('BEGIN LOOP')
+        ts = time.time()
+
         for page_num in range(start_page, start_page + pages):
             listings.load_page(page_num)
-            print('HI')
             print(listings.get_url(page_num))
 
             if page_num == start_page:
@@ -127,9 +128,10 @@ class TradeList(object):
                 print(len(price_array), len(attr_array), len(url_id_array), len(url_array))
 
             # Sleep delay
-            ts = time.time()
             random_sleep = delay + delay*(random.randint(0, 1000) / 1000)
+            print('({:0.4} s delay)'.format(random_sleep))
             time.sleep(random_sleep)
-            print('({:0.4} s delay)'.format(time.time() - ts))
 
+        print('')
+        print('Time taken: {:0.2} s'.format(time.time() - ts))
         return price_array, attr_array, url_id_array, url_array
