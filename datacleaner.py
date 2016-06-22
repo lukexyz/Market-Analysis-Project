@@ -10,6 +10,9 @@ class DataCleaner(object):
         self.urls = urls
 
     def get_df(self):
+        """
+        Returns pandas dataframe with vehicle data
+        """
         prices = self.prices
         attr = self.attributes
         ids = self.url_ids
@@ -23,8 +26,19 @@ class DataCleaner(object):
         for i in range(len(attr)):
             # Example string:
             # '2000 (W reg) Hatchback 177,000 miles Manual 1.0L 67 bhp Petrol '
-            years[i] = int(attr[i].split(' ')[0])
-            miles[i] = int(attr[i].split(' ')[4].replace(",", ""))
+            try:
+                if len(attr[i].split(' ')) == 12:
+                    years[i] = int(attr[i].split(' ')[0])
+                    miles[i] = int(attr[i].split(' ')[4].replace(",", ""))
+                else:
+                    # Row elements -1 if data is invalid
+                    years[i] = -1
+                    miles[i] = -1
+            except Exception as e:
+                print('Error: {}'.format(e))
+                print('On string: {}'.format(attr[i]))
+                years[i] = -1
+                miles[i] = -1
 
         # Create data frame
         data = {'Price': prices,
@@ -34,6 +48,10 @@ class DataCleaner(object):
                 'Url': urls}
         df = pd.DataFrame(data, columns=['Price', 'Year', 'Miles', 'ID', 'Url'])
 
+        # Drop invalid data
+        df = df.loc[df.Year > 0]
+
+        print('Shape: {}'.format(df.shape))
         return df
 
 

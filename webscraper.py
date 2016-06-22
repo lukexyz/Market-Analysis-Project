@@ -8,7 +8,7 @@ import random
 
 class TradeList(object):
     """
-    A web scraper to extract sales attributes on autotrader.co.uk
+    A web scraper to extract sales attributes from autotrader.co.uk
     Specify the make, model, postcode and search radius for the vehicle
 
     Part of a larger machine learning sales analytics project.
@@ -94,10 +94,9 @@ class TradeList(object):
         for link in links:
             url[k] = link.get('href')
             k += 1
-            print(k, link.get('href'))
         return url
 
-    def run(self, listings, pages=3, delay=1):
+    def run(self, listings, pages=3, start_page=1, delay=1):
         """Loops over search results and returns an array of vehicle attributes"""
         price_array = np.array([])
         attr_array = np.array([], dtype=object)
@@ -106,48 +105,31 @@ class TradeList(object):
 
         print('='*8)
         print('BEGIN LOOP')
-        for page_num in range(1, pages+1):
-            print("Processing page {} of {}...".format(page_num, pages))
+        for page_num in range(start_page, start_page + pages):
             listings.load_page(page_num)
+            print('HI')
+            print(listings.get_url(page_num))
 
-            # Append attributes into array
-            page_prices = listings.get_prices()
-            price_array = np.append(price_array, page_prices)
-            attributes = listings.get_attributes()
-            attr_array = np.append(attr_array, attributes)
+            if page_num == start_page:
+                print(" → of {} total pages".format(listings.get_num_pages()))
+                print('')
+            print("Processing page {} of {}...".format(page_num, pages))
 
-            url_ids = listings.get_url_ids()
-            url_id_array = np.append(url_id_array, url_ids)
+            try:
+                # Append attributes into array
+                price_array = np.append(price_array, listings.get_prices())
+                attr_array = np.append(attr_array, listings.get_attributes())
+                url_id_array = np.append(url_id_array, listings.get_url_ids())
+                url_array = np.append(url_array, listings.get_urls())
 
-            urls = listings.get_urls()
-            url_array = np.append(url_array, urls)
-
+            except Exception as e:
+                print('An error occurred on page {}: {}'.format(page_num, e))
+                print(len(price_array), len(attr_array), len(url_id_array), len(url_array))
 
             # Sleep delay
             ts = time.time()
             random_sleep = delay + delay*(random.randint(0, 1000) / 1000)
             time.sleep(random_sleep)
             print('({:0.4} s delay)'.format(time.time() - ts))
+
         return price_array, attr_array, url_id_array, url_array
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
