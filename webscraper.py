@@ -66,15 +66,19 @@ class TradeList(object):
         """Returns car attributes"""
         attributes = self.soup.html.body.findAll('ul', {'class': 'search-result__attributes'})
         summary = []
+        category = []
         for k in range(1, 11):
             car_attr = ''
+            c = 0
             for counter, item in enumerate(attributes[k].findAll('li')):
                 if attributes[k].find(class_='js-tooltip') and counter == 0:
+                    c = 1
                     continue
                 else:
                     car_attr += item.text + ' '
+            category.append(c)
             summary.append(car_attr)
-        return summary
+        return summary, category
 
     def get_url_ids(self):
         """Return unique url ID."""
@@ -102,6 +106,7 @@ class TradeList(object):
         attr_array = np.array([], dtype=object)
         url_id_array = np.array([])
         url_array = np.array([])
+        category_array = np.array([])
 
         print('='*8)
         print('BEGIN LOOP')
@@ -119,7 +124,8 @@ class TradeList(object):
             try:
                 # Append attributes into array
                 price_array = np.append(price_array, listings.get_prices())
-                attr_array = np.append(attr_array, listings.get_attributes())
+                attr_array = np.append(attr_array, listings.get_attributes()[0])
+                category_array = np.append(category_array, listings.get_attributes()[1])
                 url_id_array = np.append(url_id_array, listings.get_url_ids())
                 url_array = np.append(url_array, listings.get_urls())
 
@@ -134,4 +140,4 @@ class TradeList(object):
 
         print('')
         print('Time taken: {:0.2} s'.format(time.time() - ts))
-        return price_array, attr_array, url_id_array, url_array
+        return price_array, attr_array, url_id_array, url_array, category_array

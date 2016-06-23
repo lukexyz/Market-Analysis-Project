@@ -3,11 +3,12 @@ import pandas as pd
 
 
 class DataCleaner(object):
-    def __init__(self, prices, attributes, url_ids, urls):
+    def __init__(self, prices, attributes, url_ids, urls, category):
         self.prices = prices
         self.attributes = attributes
         self.url_ids = url_ids
         self.urls = urls
+        self.category = category
 
     def get_df(self):
         """
@@ -17,6 +18,8 @@ class DataCleaner(object):
         attr = self.attributes
         ids = self.url_ids
         urls = self.urls
+        category = self.category
+
         print('Returning Pandas DF')
 
         # Extracting values from string
@@ -44,9 +47,10 @@ class DataCleaner(object):
         data = {'Price': prices,
                 'Year': years,
                 'Miles': miles,
+                'Category': category,
                 'ID': ids,
                 'Url': urls}
-        df = pd.DataFrame(data, columns=['Price', 'Year', 'Miles', 'ID', 'Url'])
+        df = pd.DataFrame(data, columns=['Price', 'Year', 'Miles', 'Category', 'ID', 'Url'])
 
         # Drop invalid data
         df = df.loc[df.Year > 0]
