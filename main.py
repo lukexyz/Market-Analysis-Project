@@ -7,7 +7,7 @@ def main():
     listings = TradeList('Toyota', 'Yaris', 'OX12JD', '100')
 
     # Initiate loop
-    price_array, attributes, url_ids, urls, category = listings.run(listings, pages=3, start_page=1, delay=2)
+    price_array, attributes, url_ids, urls, category = listings.run(listings, pages=3, start_page=30, delay=2)
 
     # Format output
     print('='*8)
