@@ -9,7 +9,7 @@ the listings which deviate the most from market value.
 
 
 #### Usage
-<img align="right" src="https://raw.githubusercontent.com/lukexyz/Market-Analysis-Project/master/img/search-pagesmall300.png">
+<img align="right" src="https://raw.githubusercontent.com/lukexyz/Market-Analysis-Project/master/img/search-pagesmall400.png">
 
 ##### Run web scraper
 
