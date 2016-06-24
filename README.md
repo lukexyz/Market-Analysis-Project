@@ -4,15 +4,14 @@ Luke Woods 2016
 
 Market analysis web-scraper that downloads vehicle attributes from Autotrader.co.uk and graphs the results.
 
-A machine learning algorithm is applied to approximate market value, and the market suggestions are
+A machine learning algorithm is applied to approximate the market value, and market suggestions are
 returned as the listings which deviate the most from market value.
 
 <img align="centre" src="https://raw.githubusercontent.com/lukexyz/Market-Analysis-Project/master/img/promo.png">
 
-#### Usage
+# Usage
 
 ##### Run web scraper
-
 ```
 from webscraper import TradeList
 
@@ -34,13 +33,15 @@ from analysis import MarketValue
 MarketValue(df)
 ```
 
-1000 results were parsed and are graphed using a seaborn jointplot. The graph shows a near linear relationship between price, year and miles.
+1000 listings were parsed and are graphed using a seaborn jointplot. The graph shows a near linear relationship between price, year and miles.
+
+```>>> plt.show()```
 
 <img src=https://raw.githubusercontent.com/lukexyz/Market-Analysis-Project/master/img/plots-toyotayaris.png>
 
 ##### Market Analysis
 
-The market price was approximated using an sklearn linear regression model. The features used were vehicle age and miles travelled, which returned a 
+The market price was approximated using the sklearn linear regression model. The features used were vehicle age and miles travelled, which returned a 
 moderately accurate approximation with score 0.76.
 
 
@@ -56,9 +57,9 @@ Coefficients: [[  289.900502  -0.01143930]]
 
 # Market Suggestions
 
-The final output is a list of the vehicle price by it's deviation from the predicted market price. 
+The final output is a list of the vehicle price by its' deviation from the predicted market price. 
 These are the market suggestions - however further investigation is recommended. Some vehicles are 
-listed below the market price for a good reason (i.e. engine problems).
+listed below the market price for a reason (i.e. engine problems).
 
 The vehicle unique ID and url are included in the extended data frame.
 
