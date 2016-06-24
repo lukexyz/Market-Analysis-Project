@@ -5,11 +5,12 @@ A web scraper that downloads vehicle attributes from Autotrader.co.uk and graphs
 Machine learning algorithms are applied to approximate market value, and the listings which 
 deviate the most from market value are returned.
 
+
 #### Usage
+<img style=float:right src=https://raw.githubusercontent.com/lukexyz/Market-Analysis-Project/master/img/search-pagesmall.png>
 
 ##### Run web scraper
 
-<img style=float:right src=http://i.imgur.com/k4lvXN4.png?1>
 
 ```
 from webscraper import TradeList
@@ -29,7 +30,6 @@ df = clean.get_df()
 ##### Analyse results
 ```
 from analysis import MarketValue
-
 MarketValue(df)
 ```
 
