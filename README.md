@@ -14,12 +14,6 @@ listings = TradeList('Toyota', 'Yaris', 'OX12JD', '50')
 listings.run(listings, pages=100, delay=2)
 ```
 
-<img src=https://i.imgur.com/0wifowN.gif>
 
-<p>
-The Boids simulation follows three core rules:
+<img src=https://raw.githubusercontent.com/lukexyz/Market-Analysis-Project/master/img/plots-toyotayaris.png>
 
-
-* Separation: steer to avoid crowding local flockmates
-* Alignment: steer towards the average heading of local flockmates
-* Cohesion: steer to move toward the average position (center of mass) of local flockmates
