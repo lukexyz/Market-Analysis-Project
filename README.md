@@ -1,9 +1,11 @@
 # Market Analysis with Machine Learning
 
+Luke Woods 2016
+
 A web scraper that downloads vehicle attributes from Autotrader.co.uk and graphs the results.
 
-Machine learning algorithms are applied to approximate market value, and the listings which 
-deviate the most from market value are returned.
+A machine learning algorithm is applied to approximate market value, and the market suggestions are
+the listings which deviate the most from market value.
 
 
 #### Usage
@@ -27,20 +29,23 @@ df = DataCleaner(price_array, attributes, url_ids, urls, category)
 df = clean.get_df()
 ```
 
+___
+
 ##### Analyse results
 ```
 from analysis import MarketValue
 MarketValue(df)
 ```
 
+1000 results were parsed and are graphed using a seaborn jointplot. The graph shows a near linear relationship between price, year and miles.
+
 <img src=https://raw.githubusercontent.com/lukexyz/Market-Analysis-Project/master/img/plots-toyotayaris.png>
 
-##### Market Suggestions
+##### Market Analysis
 
-The output data frame lists the results by deviation from market. The market price was approximated 
-using the sklearn linear regression model.
+The market price was approximated using an sklearn linear regression model. The features used were vehicle age and miles travelled, which returned a 
+moderately accurate approximation with score 0.76.
 
-The vehicle unique ID and url are included in the extended data frame.
 
 ```
 Graphing Market Analysis...
@@ -50,6 +55,18 @@ Predictions: [ 3781.47831641  2976.49471733  2095.35390833  2559.1202901   3815.
 Actual Price: [ 3395.  2650.  2895.  1900.  3395.]
 LR Score : 0.76235
 Coefficients: [[  289.900502  -0.01143930]]
+```
+
+# Market Suggestions
+
+The final output is a list of the vehicle price by it's deviation from the predicted market price. 
+These are the market suggestions - however further investigation is recommended. Some vehicles are 
+listed below the market price for a good reason (i.e. engine problems).
+
+The vehicle unique ID and url are included in the extended data frame.
+
+```
+df[df.Category == 0].sort_values('Price_difference').head(10)
 
       Price   Pred_price  Price_difference    Year    Miles  Category  
 129   995.0  2263.339986          -1268.34  2005.0  74000.0       0.0   
@@ -63,3 +80,5 @@ Coefficients: [[  289.900502  -0.01143930]]
 493  2495.0  3525.895725          -1030.90  2009.0  65000.0       0.0   
 434  2299.0  3323.591737          -1024.59  2007.0  32000.0       0.0  
 ```
+
+Luke Woods 2016 MIT License (MIT)
