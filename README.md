@@ -8,6 +8,9 @@ deviate the most from market value are returned.
 #### Usage
 
 ##### Run web scraper
+
+<img style=float:right src=http://i.imgur.com/k4lvXN4.png?1>
+
 ```
 from webscraper import TradeList
 

@@ -1,5 +1,6 @@
 from webscraper import TradeList
 from datacleaner import DataCleaner
+from analysis import MarketValue
 
 
 def main():
@@ -34,6 +35,9 @@ def main():
 
     # Save results
     df.to_csv('yaris{}.csv'.format(len(df)))
+
+    # Analyse results
+    MarketValue(df)
 
 
 if __name__ == '__main__':
