@@ -2,10 +2,9 @@
 
 Luke Woods 2016
 
-Market analysis web-scraper that downloads vehicle attributes from Autotrader.co.uk and graphs the results.
+Market analysis web-scraper that downloads vehicle attributes from Autotrader.co.uk and graphs the results. A machine learning algorithm is applied to approximate the market value, and market suggestions are returned as the listings which deviate the most from the market value.
 
-A machine learning algorithm is applied to approximate the market value, and market suggestions are
-returned as the listings which deviate the most from market value.
+_Packages used: scikit-learn, beautiful-soup, numpy, pandas, seaborn._
 
 <img align="centre" src="https://raw.githubusercontent.com/lukexyz/Market-Analysis-Project/master/img/promo.png">
 
