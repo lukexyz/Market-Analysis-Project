@@ -2,17 +2,16 @@
 
 Luke Woods 2016
 
-A web scraper that downloads vehicle attributes from Autotrader.co.uk and graphs the results.
+Market analysis web-scraper that downloads vehicle attributes from Autotrader.co.uk and graphs the results.
 
 A machine learning algorithm is applied to approximate market value, and the market suggestions are
-the listings which deviate the most from market value.
+returned as the listings which deviate the most from market value.
 
+<img align="centre" src="https://raw.githubusercontent.com/lukexyz/Market-Analysis-Project/master/img/promo.png">
 
 #### Usage
-<img align="right" src="https://raw.githubusercontent.com/lukexyz/Market-Analysis-Project/master/img/search-pagesmall400.png">
 
 ##### Run web scraper
-
 
 ```
 from webscraper import TradeList
@@ -28,8 +27,6 @@ from datacleaner import DataCleaner
 df = DataCleaner(price_array, attributes, url_ids, urls, category)
 df = clean.get_df()
 ```
-
-___
 
 ##### Analyse results
 ```
@@ -80,5 +77,7 @@ df[df.Category == 0].sort_values('Price_difference').head(10)
 493  2495.0  3525.895725          -1030.90  2009.0  65000.0       0.0   
 434  2299.0  3323.591737          -1024.59  2007.0  32000.0       0.0  
 ```
+
+___
 
 Luke Woods 2016 MIT License (MIT)
